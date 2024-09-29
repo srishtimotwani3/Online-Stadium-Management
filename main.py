@@ -13,7 +13,7 @@ if mycon.is_connected() == True:
 cursor = mycon.cursor()
 data1 = cursor.execute("SELECT*FROM user_details;")
 dataDB = cursor.fetchall()
-2
+
 
 data = [
 ]
