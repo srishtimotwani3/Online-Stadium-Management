@@ -13,8 +13,7 @@ if mycon.is_connected() == True:
 cursor = mycon.cursor()
 data1 = cursor.execute("SELECT*FROM user_details;")
 dataDB = cursor.fetchall()
-# print(data1)
-
+2
 
 data = [
 ]
@@ -33,62 +32,67 @@ print(
 print("1.ADMIN\n2.USER")
 
 user_or_admin = int(input("Enter Your Category choice: "))
+if user_or_admin == 1:
+    check = True
+    while check:
+        if user_or_admin == 1:  # admin
+            admin_pass = input("Enter Admin Passcode: ")
 
-if user_or_admin == 1:  # admin
-    admin_pass = input("Enter Admin Passcode")
+            if admin_pass == ("Admin123"):
+                print("Admin Authorised\n Welcome to admin controls")
+                admin_choice = int(input(" 1.show database\n 2. edit database \n 3. Exit Admin Controls"))
+                if admin_choice == 1:
+                    print(dataDB)
 
-    if admin_pass == ("Admin123"):
-        print("Admin Authorised\n Welcome to admin controls")
-        admin_choice = int(input(" 1.show database\n 2. edit database \n 3. Exit Admin Controls"))
-        if admin_choice == 1:
-            print(dataDB)
+                elif admin_choice == 2:
+                    editorial_choice = int(input("welcome to editorial admin tool\n select the desired tool\n 1. adding tool "))
+                    # while editorial_choice <=4:
+                    # print("you have entered a wrong choice")
+                    # editorial_choice=int(input("enter a valid choice: "))
 
-        elif admin_choice == 2:
-            editorial_choice = int(input("welcome to editorial admin tool\n select the desired tool\n 1. adding tool "))
-            # while editorial_choice <=4:
-            # print("you have entered a wrong choice")
-            # editorial_choice=int(input("enter a valid choice: "))
+                    if editorial_choice == 1:
+                        print("Adding Tool")
 
-            if editorial_choice == 1:
-                print("Adding Tool")
+                        menum = int(input("Enter menum: "))
+                        name = input("Enter name: ")
+                        password = input("Enter password: ")
+                        email = input("Enter email: ")
+                        dateofbirth = input("Enter DOB(YYYY/MM/DD): ")
 
-                menum = int(input("Enter your menum: "))
-                name = input("Enter your name: ")
-                password = input("Enter your password: ")
-                email = input("Enter the email: ")
-                dateofbirth = input("Enter the DOB(YYYY/MM/DD): ")
+                        mydb = sqltor.connect(host="localhost", user="root", password="root", database="crackosdb")
 
-                mydb = sqltor.connect(host="localhost", user="root", password="root", database="crackosdb")
+                        mycursor = mydb.cursor()
 
-                mycursor = mydb.cursor()
+                        sql = "INSERT INTO user_details (MENUM,NAME,PASSWORD,EMAIL,DOB) VALUES (%s,%s,%s,%s,%s)"
+                        val = (menum, name, password, email, dateofbirth)
+                        mycursor.execute(sql, val)
+                        mydb.commit()
 
-                sql = "INSERT INTO user_details (MENUM,NAME,PASSWORD,EMAIL,DOB) VALUES (%s,%s,%s,%s,%s)"
-                val = (menum, name, password, email, dateofbirth)
-                mycursor.execute(sql, val)
-                mydb.commit()
-                data = mycursor.fetchall()
-            else:
-                print("Invalid choice. Terminating program!")
+                    else:
+                        print("Invalid choice. Terminating program!")
+                        exit()
+
+                elif admin_choice == 3:
+                    print("Signing out as an admin! Re-run the code to enter as User!")
+                    check=False
+                    exit()
+
+
+
+                else:
+                    print("Invalid choice. Terminating program!")
+                    exit()
+
+
+
+            else:  # if admin_pass wrong
+                print("Unauthorised personnel")
                 exit()
 
-        elif admin_choice == 3:
-            print("Signing out as an admin! Re-run the code to enter as User!")
-            exit()
 
 
 
-        else:
-            print("Invalid choice. Terminating program!")
-            exit()
-
-
-
-    else:  # if admin_pass wrong
-        print("Unauthorised personnel")
-        exit()
-
-
-elif user_or_admin == 2:  # user
+if user_or_admin == 2:  # user
 
     print("You want to Sign Up Or Sign In?\n")
     print("Enter 1 for Signing Up\nEnter 2 If You're Already a Part Of The Fam \n")
@@ -731,7 +735,7 @@ elif user_or_admin == 2:  # user
 
                         img = qrcode.make(bookings)
 
-                        img.save("C:/Users/Srishti/PycharmProjects/OnlineStadiumManagmentFinal/TicketDetails.png")
+                        img.save("C:/Users/srish/PycharmProjects/pythonProject1/TicketDetails.png")
 
                         with open('TicketDetails.png', 'rb') as f:
                             image_data = f.read()
@@ -752,9 +756,9 @@ elif user_or_admin == 2:  # user
                     elif pay_option == 2:
                         print("Payment done with EFT Card.\n\n Ticket successfully booked!\n\n")
 
-                        Sender_Email = "TestCSProject123@gmail.com"
+                        Sender_Email = "bunny.040305@gmail.com"
                         Reciever_Email = [email_id]
-                        Password = 'siydspswugryaobb'
+                        Password = 'Dawn@345..'
 
                         newMessage = EmailMessage()  # creating an object of EmailMessage class
                         newMessage['Subject'] = "Booking Confirmation From Crackos Coliseum"  # Defining email subject
@@ -768,7 +772,7 @@ elif user_or_admin == 2:  # user
 
                         img = qrcode.make(bookings)
 
-                        img.save("C:/Users/Srishti/PycharmProjects/OnlineStadiumManagmentFinal/TicketDetails.png")
+                        img.save("C:/Users/srish/PycharmProjects/pythonProject1/TicketDetails.png")
 
                         with open('TicketDetails.png', 'rb') as f:
                             image_data = f.read()
